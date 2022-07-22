@@ -1,7 +1,7 @@
 <template>
 	<div class="card">
-		<div class="image__container">
-			<img :src="post.image" class="card__image" alt="post picture" />
+		<div class="image__conatiner">
+			<img :src="post.image" alt="" class="card__image">
 		</div>
 		<div>
 			<div class="card__header">
@@ -86,12 +86,7 @@
 			},
 			trimmedString(str) {
 				let trimmed = str.substr(0, 200)
-				return (
-					trimmed.substr(
-						0,
-						Math.min(trimmed.length, trimmed.lastIndexOf(" "))
-					) + "..."
-				)
+				return trimmed.substr(0, Math.min(trimmed.length, trimmed.lastIndexOf(" "))) + "..."
 			},
 		},
 
@@ -104,10 +99,9 @@
 </script>
 <style scoped>
 	.card {
-		border-radius: 5px 5px;
+		border-radius: 5px;
 		padding: 10px;
 		border: 1px solid #f5f5f5;
-		overflow: hidden;
 	}
 
 	@media screen and (min-width: 768px) {
@@ -125,38 +119,15 @@
 	}
 
 	.card__image {
-		width: 330px;
-		height: 200px;
+		width: 100%;
+		max-height: 200px;
 		object-fit: fill;
-		border-radius: 0.125rem;
 	}
-	.image__container {
-		position: relative;
-		overflow: hidden;
-		max-width: 300px;
-		z-index: 1;
-	}
-	.image__container::after {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		background: #e5e5e5;
-		opacity: 0;
-		transition: 0.5s ease all;
-	}
-	img {
-		transition: 0.5s ease all;
-		width: 100%;
-		object-fit: cover;
-	}
-	.image__container:hover img {
-		transform: scale(1.1);
-	}
-	.image__container:hover::after {
-		opacity: 0.2;
+
+	img.card__img:hover,
+	image.card__image:focus {
+		transition: transform 1s ease-in-out;
+		transform: scale(1);
 	}
 
 	.card__header {
