@@ -33,7 +33,7 @@
 					currency: "USD",
 					payment_options: "card",
 					redirect_url:
-						"https://glaciers.titanic.com/handle-flutterwave-payment",
+						"https://luxury-clafoutis-82d7e8.netlify.app/blog-listing",
 					customer: {
 						email: "surfersdevelopers@gmail.com",
 						phone_number: "09063431256",
