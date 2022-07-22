@@ -44,29 +44,6 @@
 				this.currentPost = post
 			},
 		},
-		beforeRouteEnter(to, from, next) {
-			getCurrentPost(to.params.id, (err, currentPost) => {
-				if (err) {
-					next(false)
-				} else {
-					next((vm) => {
-						vm.currentPost = currentPost
-					})
-				}
-			})
-		},
-		watch: {
-			$route() {
-				this.currentPost = ""
-				getCurrentPost(this.$route.params.id, (err, post) => {
-					if (err) {
-						this.error = err.toString()
-					} else {
-						this.currentPost = post
-					}
-				})
-			},
-		},
 	}
 </script>
 
