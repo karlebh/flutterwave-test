@@ -19,7 +19,7 @@
 				"visibleNews",
 				"pageSize",
 				"currentPage",
-				"news",
+				"posts",
 			]),
 		},
 		beforeMount() {
@@ -28,7 +28,7 @@
 		methods: {
 			...mapActions("pagination", ["updatePage", "updateVisibleNews"]),
 			totalPages() {
-				return Math.ceil(this.news.length / this.pageSize)
+				return Math.ceil(this.posts.length / this.pageSize)
 			},
 			showPreviousLink() {
 				return this.currentPage == 0 ? false : true
