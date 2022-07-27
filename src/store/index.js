@@ -1,7 +1,12 @@
 import { createStore } from "vuex"
 import axios from "axios"
 
+import pagination from "./pagination"
+
 export default createStore({
+	modules: {
+		pagination
+	},
 	state: {
 		posts: [],
 		loading: false,
@@ -11,16 +16,16 @@ export default createStore({
 			return state.posts
 		},
 		randomPost(state) {
-			return state.posts.sort(() => Math.random() - 0.5)[0]
+			let randomNumber = Math.floor(Math.random() * 10)
+			return state.posts.sort(() => Math.random() - 0.5)[randomNumber]
 		},
 		randomPosts(state) {
-			return state.posts.sort(() => Math.random() - 0.5).slice(0, 3)
+			return state.posts.sort(() => Math.random() - 0.5)
 		}
 	},
 	mutations: {
 		loadPosts(state, payload) {
 			state.posts = payload
-			console.log("hdhdhhd")
 		},
 	},
 	actions: {
@@ -32,7 +37,6 @@ export default createStore({
 				commit("loadPosts", JSON.parse(posts))
 				state.loading = false
 			} else {
-				state.loading = true
 				await axios
 					.get(`https://techcrunch.com/wp-json/wp/v2/posts`)
 					.then((response) => {
@@ -54,8 +58,7 @@ export default createStore({
 								author: article.parsely.meta.creator[0],
 							})
 						})
-						commit("loadPosts", posts)
-						console.log(data[0])
+						commit("loadPosts", info)
 						localStorage.setItem("posts", JSON.stringify(info))
 						state.loading = false
 					})

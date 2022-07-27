@@ -2,12 +2,14 @@
 	<div id="app">
 		<Loader v-if="loading" />
 
-		<TheHeader />
-		<router-view v-slot="{ Component }">
-			<transition name="fade">
-				<component :is="Component" />
-			</transition>
-		</router-view>
+		<div v-if="!loading">
+			<TheHeader />
+			<router-view v-slot="{ Component }">
+				<transition name="fade">
+					<component :is="Component" />
+				</transition>
+			</router-view>
+		</div>
 	</div>
 </template>
 
@@ -15,6 +17,7 @@
 	import { mapState, mapActions } from "vuex"
 
 	import TheHeader from "@/components/TheHeader"
+	import Loader from "@/components/Loader"
 
 	export default {
 		created() {
@@ -28,6 +31,7 @@
 		},
 		components: {
 			TheHeader,
+			Loader,
 		},
 	}
 </script>

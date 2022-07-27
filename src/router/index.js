@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router"
 
 import BlogDetails from "@/views/BlogDetails"
 import BlogListing from "@/views/BlogListing"
+import Pagination from "@/views/Pagination"
 
 const routes = [
 	{
@@ -14,7 +15,11 @@ const routes = [
 		name: "details",
 		component: BlogDetails,
 	},
-
+	{
+		path: "/pagination",
+		name: "pagination",
+		component: Pagination,
+	},
 	{ path: "/:catchAll(.*)", redirect: "/blog-listing" },
 ]
 

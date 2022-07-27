@@ -3,9 +3,8 @@
 		<Post :post="currentPost" />
 		<div class="post__more">
 			<h1>More Articles</h1>
-
 			<div class="post__articles">
-				<PostCard v-for="post in randomPosts" :key="post.id" :item="post" />
+				<PostCard :posts="randomPosts.slice(0, 3)" />
 			</div>
 		</div>
 	</footer>
@@ -15,7 +14,7 @@
 	import { mapGetters } from "vuex"
 
 	import Post from "@/components/Post"
-	import PostCard from "@/components/PostCard.vue"
+	import PostCard from "@/components/PostCard"
 
 	export default {
 		data() {
@@ -24,24 +23,25 @@
 			}
 		},
 		components: {
-			PostCard,
 			Post,
+			PostCard
 		},
 		computed: {
 			...mapGetters(["allPosts", "randomPosts"]),
-			// currentPost() {
-			// 	return this.allPosts.find((post) => post.id === this.$route.params.id)
-			// },
 		},
-		mounted() {
-			this.setPost()
+		beforeMount() {
+			this.currentPost = this.allPosts.find(
+				(post) => post.id == this.$route.params.id
+			)
+		},
+		beforeUpdate() {
+			this.updatePost()
 		},
 		methods: {
-			setPost() {
-				const post = this.allPosts.find(
+			updatePost() {
+				return (this.currentPost = this.allPosts.find(
 					(post) => post.id == this.$route.params.id
-				)
-				this.currentPost = post
+				))
 			},
 		},
 	}

@@ -1,5 +1,5 @@
 <template>
-	<header class="header">
+	<header class="header" id="header">
 		<router-link to="/blog-listing">
 			<HeaderLogo />
 		</router-link>

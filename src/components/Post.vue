@@ -32,7 +32,7 @@
 	export default {
 		props: {
 			post: {
-				type: String,
+				type: Object,
 			},
 		},
 	}

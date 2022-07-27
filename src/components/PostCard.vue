@@ -1,7 +1,7 @@
 <template>
-	<div class="card">
+	<div class="card" v-for="post in posts" :key="post.date">
 		<div class="image__conatiner">
-			<img :src="post.image" alt="" class="card__image">
+			<img :src="post.image" alt="" class="card__image" />
 		</div>
 		<div>
 			<div class="card__header">
@@ -32,7 +32,10 @@
 			<div class="time-link">
 				<span class="time">{{ post.read_time }} Mins Read</span>
 
-				<router-link :to="{ name: 'details', params: { id: post.id } }">
+				<router-link
+					@click="scrollTop"
+					:to="{ name: 'details', params: { id: post.id } }"
+				>
 					<span class="link">
 						<span> Read Full </span>
 						<svg
@@ -72,21 +75,27 @@
 </template>
 <script>
 	import moment from "moment"
-
 	export default {
 		props: {
-			item: {
+			posts: {
 				type: Object,
 			},
 		},
-
 		methods: {
 			created(date) {
 				return moment(date).startOf("hour").fromNow()
 			},
 			trimmedString(str) {
 				let trimmed = str.substr(0, 200)
-				return trimmed.substr(0, Math.min(trimmed.length, trimmed.lastIndexOf(" "))) + "..."
+				return (
+					trimmed.substr(
+						0,
+						Math.min(trimmed.length, trimmed.lastIndexOf(" "))
+					) + "..."
+				)
+			},
+			scrollTop() {
+				window.scrollTo(0, 0)
 			},
 		},
 
@@ -122,12 +131,14 @@
 		width: 100%;
 		max-height: 200px;
 		object-fit: fill;
+		border-radius: 3.5px;
 	}
 
-	img.card__img:hover,
-	image.card__image:focus {
+	img.card__image:hover,
+	img.card__image:focus {
 		transition: transform 1s ease-in-out;
-		transform: scale(1);
+		-webkit-transform: scale(1.1); /* Chrome, Safari, Opera */
+		transform: scale(1.1);
 	}
 
 	.card__header {
@@ -144,7 +155,6 @@
 		text-align: left;
 		color: #6e6e6e;
 		text-transform: capitalize;
-		/* 09018188897 */
 	}
 
 	.card__text p {
